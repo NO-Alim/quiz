@@ -10,7 +10,13 @@ export const moduleApi = apiSlice.injectEndpoints({
       }),
     }),
     getModules: builder.query({
-      query: (email) => `/modules?author=${email}`,
+      query: (email) => {
+        let url = `/modules`;
+        if (email) {
+          url = `/modules?author=${email}`;
+        }
+        return url;
+      },
     }),
   }),
 });

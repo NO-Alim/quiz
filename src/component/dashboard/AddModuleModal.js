@@ -8,7 +8,7 @@ const AddModuleModal = ({ open, control }) => {
   const [moduleName, setModuleName] = useState('');
   const [error, setError] = useState('');
   const { user } = useSelector((state) => state.auth);
-  const { email } = user || {};
+  const { email, name } = user || {};
 
   const [addModule, { isSuccess, isError, error: responseError, loading }] =
     useAddModuleMutation();
@@ -20,6 +20,7 @@ const AddModuleModal = ({ open, control }) => {
       data: {
         name: moduleName,
         author: email,
+        authorName: name,
       },
     });
   };
