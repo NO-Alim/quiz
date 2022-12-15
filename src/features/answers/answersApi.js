@@ -10,7 +10,13 @@ export const answersApi = apiSlice.injectEndpoints({
       }),
     }),
     getAnswers: builder.query({
-      query: () => `/answers`,
+      query: (moduleId) => {
+        let url = `/answers`;
+        if (moduleId) {
+          url = `/answers?moduleId=${moduleId}`;
+        }
+        return url;
+      },
     }),
   }),
 });

@@ -63,6 +63,9 @@ const SingleModule = ({ item }) => {
               Author : <span className="capitalize">{item.authorName}</span>
             </h1>
             <h1 className="text-sm">Total Question: {questionsData.length}</h1>
+            <h1 className="text-sm">
+              Participate: {resultData?.length} of {questionsData?.length}
+            </h1>
             <button
               className="w-full text-center py-2 rounded-md bg-brand text-background font-semibold mt-5"
               onClick={controlQuestionModal}
@@ -99,6 +102,9 @@ const SingleModule = ({ item }) => {
               Author : <span className="capitalize">{item.authorName}</span>
             </h1>
             <h1 className="text-sm">Score: 0 / {questionsData?.length * 5}</h1>
+            <h1 className="text-sm">
+              Participate: {resultData?.length} of {questionsData?.length}
+            </h1>
             <button
               className="w-full text-center py-2 rounded-md bg-brand text-background font-semibold mt-5"
               onClick={controlAnswerModal}
@@ -107,7 +113,11 @@ const SingleModule = ({ item }) => {
             </button>
           </div>
         </div>
-        <SeeAnswerModal open={openAnswerModal} control={controlAnswerModal} />
+        <SeeAnswerModal
+          open={openAnswerModal}
+          control={controlAnswerModal}
+          item={item}
+        />
       </>
     );
   }

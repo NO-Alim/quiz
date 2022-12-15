@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import questionImage from '../../assets/images/question.png';
 
 const QuestionBody = ({ question, handleOptionClick }) => {
   const { title, code, options, id } = question || {};
 
   const handleClick = (e) => {
-    const x = {
+    const toggledSelected = {
       ...question,
       options: question.options.map((item, ind) => {
         if (ind === e) {
@@ -27,7 +27,7 @@ const QuestionBody = ({ question, handleOptionClick }) => {
       }),
     };
 
-    handleOptionClick(id, x);
+    handleOptionClick(id, toggledSelected);
   };
 
   return (
