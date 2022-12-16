@@ -2,9 +2,12 @@ import React from 'react';
 import questionImage from '../../assets/images/question.png';
 import wrong from '../../assets/images/wrong.png';
 import rightTick from '../../assets/images/rightTick.png';
-const SingleAnswerBody = ({ answer, result }) => {
+const SingleAnswerBody = ({ answer, results }) => {
   const { title, code, options, id, description } = answer || {};
-  const { options: resultOptions } = result[0] || {};
+
+  //result filter
+  const thisItemResult = results.filter((resItem) => resItem.questionId === id);
+  const { options: resultOptions } = thisItemResult[0] || {};
   return (
     <div className="flex flex-col gap-10">
       <div className="flex items-center gap-5">
@@ -16,7 +19,6 @@ const SingleAnswerBody = ({ answer, result }) => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {options.map((item, ind) => {
-          console.log(resultOptions[ind].value === item.value);
           return (
             <div
               className={`flex gap-5 items-center cursor-pointer rounded-md `}

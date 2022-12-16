@@ -24,7 +24,7 @@ const ParticipateModal = ({ open, control, questions, item }) => {
       </div>
     );
   }
-  if (!loading && !errorMessage) {
+  if (!loading && !errorMessage && questions) {
     content = (
       <QuestionsContainer
         questions={questions}
