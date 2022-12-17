@@ -15,7 +15,15 @@ export const resultApi = apiSlice.injectEndpoints({
         `/result?userId=${userId}&moduleId=${moduleId}`,
       providesTags: ['result'],
     }),
+    getUserAllResult: builder.query({
+      query: (userId) => `/result?userId=${userId}`,
+      providesTags: ['result'],
+    }),
   }),
 });
 
-export const { useGetResultQuery, useAddResultMutation } = resultApi;
+export const {
+  useGetResultQuery,
+  useAddResultMutation,
+  useGetUserAllResultQuery,
+} = resultApi;

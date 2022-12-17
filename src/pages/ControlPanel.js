@@ -3,7 +3,7 @@ import AddModuleModal from '../component/dashboard/AddModuleModal';
 import ModuleList from '../component/dashboard/ModuleList';
 import Navbar from '../component/global/Navbar';
 
-const Score = () => {
+const ControlPanel = () => {
   const [openAddModuleModal, setOpenAddModuleModal] = useState(false);
 
   const controlModuleModal = () => {
@@ -35,4 +35,4 @@ const Score = () => {
   );
 };
 
-export default Score;
+export default ControlPanel;

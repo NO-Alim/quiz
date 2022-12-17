@@ -16,6 +16,7 @@ const QuestionsContainer = ({
 
   const [addResult, { isSuccess, isError, error, loading }] =
     useAddResultMutation();
+
   const nextQuestion = () => {
     if (activeQuestion < questions.length - 1) {
       setActiveQuestion(activeQuestion + 1);
@@ -28,7 +29,6 @@ const QuestionsContainer = ({
     }
   };
 
-  //...(delete item.selected && item)
   //when client click options add a value Selected:true and setInside questions
   const handleOptionClick = (questionId, question) => {
     const changedQuestion = questionsState.map((item) =>
@@ -100,6 +100,7 @@ const QuestionsContainer = ({
           className={`px-5 py-2 bg-brand/80 hover:bg-brand disabled:hover:bg-brand/80 text-background font-semibold rounded-md all ${
             activeQuestion === questions.length - 1 ? null : 'hidden'
           }`}
+          disabled={loading}
           onClick={handleSubmit}
         >
           Submit Answer

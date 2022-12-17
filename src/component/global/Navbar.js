@@ -14,13 +14,19 @@ const Navbar = () => {
           Home
         </Link>
         <Link
+          to="/controlPanel"
+          className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+        >
+          Control Panel
+        </Link>
+        <Link
           to="/dashboard"
           className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
         >
-          Dash Board
+          Dashboard
         </Link>
         <Link
-          to="/leaderboard"
+          to="/ranking"
           className="rounded-md px-3 py-2 hover:bg-brand/10 all"
         >
           Leader Board

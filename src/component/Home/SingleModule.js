@@ -6,29 +6,25 @@ import done from '../../assets/images/done.png';
 import { useGetQuestionsQuery } from '../../features/question/questionsApi';
 import SeeAnswerModal from './SeeAnswerModal';
 import ParticipateModal from './ParticipateModal';
+import { result } from '../../utils/resultCalculation';
+import { useGetAnswersQuery } from '../../features/answers/answersApi';
 
-const SingleModule = ({ item }) => {
+const SingleModule = ({ item, handlePoint }) => {
   const { user } = useSelector((state) => state.auth);
   const { id } = user;
 
-  const [openAnswerModal, setOpenAnswerModal] = useState(false);
-  const [openQuestionModal, setOpenQuestionModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const controlAnswerModal = () => {
-    setOpenAnswerModal(!openAnswerModal);
-  };
-
-  const controlQuestionModal = () => {
-    setOpenQuestionModal(!openQuestionModal);
+  const controlModal = () => {
+    setOpenModal(!openModal);
   };
 
   //fetch Module answer, if there is answer conditionally render view answer or Participate
-
   const {
     data: resultData,
-    isLoading,
-    isError,
-    error,
+    isLoading: resultIsLoading,
+    isError: isResultError,
+    error: resultError,
   } = useGetResultQuery({
     userId: id,
     moduleId: item.id,
@@ -42,16 +38,30 @@ const SingleModule = ({ item }) => {
     error: questionsError,
   } = useGetQuestionsQuery(item.id) || {};
 
+  //fetch answer
+
+  const {
+    data: answersData,
+    isLoading: answerLoading,
+    isError: isAnswerError,
+    error: answerError,
+  } = useGetAnswersQuery(item.id);
+
   let content;
 
-  if (!isLoading && isError) {
-    content = <Error message={error.data} />;
+  if (
+    (isQuestionsError || isResultError) &&
+    (resultError || questionsError) &&
+    isAnswerError
+  ) {
+    content = <Error message="something wrong in module data" />;
   }
 
   if (
-    !isLoading &&
-    !isError &&
-    resultData.length === 0 &&
+    !questionsLoading &&
+    !resultIsLoading &&
+    !isQuestionsError &&
+    resultData?.length === 0 &&
     questionsData?.length > 0
   ) {
     content = (
@@ -68,15 +78,15 @@ const SingleModule = ({ item }) => {
             </h1>
             <button
               className="w-full text-center py-2 rounded-md bg-brand text-background font-semibold mt-5"
-              onClick={controlQuestionModal}
+              onClick={controlModal}
             >
               Participate
             </button>
           </div>
         </div>
         <ParticipateModal
-          open={openQuestionModal}
-          control={controlQuestionModal}
+          open={openModal}
+          control={controlModal}
           questions={questionsData}
           item={item}
         />
@@ -85,7 +95,16 @@ const SingleModule = ({ item }) => {
   }
 
   //if this module have answer for this user See Answer
-  if (!isLoading && !isError && resultData?.length > 0) {
+  if (
+    !resultIsLoading &&
+    !isResultError &&
+    !answerLoading &&
+    !isAnswerError &&
+    answersData?.length > 0 &&
+    resultData?.length > 0
+  ) {
+    const earningPoint = result(answersData, resultData);
+    handlePoint(earningPoint.point);
     content = (
       <>
         <div className="bg-brand/10 p-2 flex flex-col rounded-md cursor-pointer">
@@ -101,23 +120,21 @@ const SingleModule = ({ item }) => {
             <h1 className="text-sm text-textPrimary/70">
               Author : <span className="capitalize">{item.authorName}</span>
             </h1>
-            <h1 className="text-sm">Score: 0 / {questionsData?.length * 5}</h1>
+            <h1 className="text-sm">
+              Score: {earningPoint?.point} / {questionsData?.length * 5}
+            </h1>
             <h1 className="text-sm">
               Participate: {resultData?.length} of {questionsData?.length}
             </h1>
             <button
               className="w-full text-center py-2 rounded-md bg-brand text-background font-semibold mt-5"
-              onClick={controlAnswerModal}
+              onClick={controlModal}
             >
               See Answer
             </button>
           </div>
         </div>
-        <SeeAnswerModal
-          open={openAnswerModal}
-          control={controlAnswerModal}
-          item={item}
-        />
+        <SeeAnswerModal open={openModal} control={controlModal} item={item} />
       </>
     );
   }

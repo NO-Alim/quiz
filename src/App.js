@@ -5,10 +5,10 @@ import PublicRoute from './component/PublicRoute';
 import useAuthCheck from './hooks/useAuthCheck';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Questions from './pages/Questions';
+import Dashboard from './pages/Dashboard';
+import Ranking from './pages/Ranking';
 import Register from './pages/Register';
-import Score from './pages/Score';
-import Settings from './pages/Settings';
+import ControlPanel from './pages/ControlPanel';
 const App = () => {
   const authChecked = useAuthCheck();
 
@@ -42,26 +42,26 @@ const App = () => {
           }
         />
         <Route
+          path="/controlPanel"
+          element={
+            <PrivateRoute>
+              <ControlPanel />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/dashboard"
           element={
             <PrivateRoute>
-              <Score />
+              <Dashboard />
             </PrivateRoute>
           }
         />
         <Route
-          path="/questions"
+          path="/ranking"
           element={
             <PrivateRoute>
-              <Questions />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/setting"
-          element={
-            <PrivateRoute>
-              <Settings />
+              <Ranking />
             </PrivateRoute>
           }
         />
