@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetResultQuery } from '../../features/result/resultApi';
 import Error from '../ui/Error';
@@ -44,8 +44,20 @@ const SingleModule = ({ item, handlePoint }) => {
     data: answersData,
     isLoading: answerLoading,
     isError: isAnswerError,
-    error: answerError,
   } = useGetAnswersQuery(item.id);
+
+  useEffect(() => {
+    if (answersData?.length > 0 && resultData?.length > 0) {
+      const earningPoint = result(answersData, resultData);
+      if (earningPoint) {
+        handlePoint({
+          id: item.id,
+          point: earningPoint?.point,
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answersData, resultData]);
 
   let content;
 
@@ -104,7 +116,6 @@ const SingleModule = ({ item, handlePoint }) => {
     resultData?.length > 0
   ) {
     const earningPoint = result(answersData, resultData);
-    handlePoint(earningPoint.point);
     content = (
       <>
         <div className="bg-brand/10 p-2 flex flex-col rounded-md cursor-pointer">

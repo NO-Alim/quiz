@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../component/global/Navbar';
 import Modules from '../component/Home/Modules';
+import ProgressRounded from '../component/Home/ProgressRounded';
 
 const Home = () => {
   return (

@@ -4,14 +4,14 @@ export const rankingApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addRanking: builder.mutation({
       query: ({ data }) => ({
-        url: 'ranking',
+        url: '/ranking',
         method: 'POST',
         body: data,
       }),
     }),
     editRanking: builder.mutation({
-      query: ({ userId, data }) => ({
-        url: `/ranking?userId=${userId}`,
+      query: ({ id, data }) => ({
+        url: `/ranking/${id}`,
         method: 'PATCH',
         body: data,
       }),
@@ -20,7 +20,7 @@ export const rankingApi = apiSlice.injectEndpoints({
       query: ({ limit, userId }) => {
         let url = `/ranking`;
         if (limit) {
-          url = `/ranking?_limit=${limit}`;
+          url = `/ranking?_sort=point&_order=desc&_limit=${limit}`;
         }
         if (userId) {
           url = `/ranking?userId=${userId}`;

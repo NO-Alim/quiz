@@ -1,7 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
+import { userLoggedOut } from '../../features/auth/authSlice';
 const Navbar = () => {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(userLoggedOut());
+    localStorage.clear();
+  };
   return (
     <div className="section py-2 bg-background text-textPrimary flex justify-between items-center shadow-sm border-b border-borderPrimary/10">
       <div>
@@ -31,6 +39,7 @@ const Navbar = () => {
         >
           Leader Board
         </Link>
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   );

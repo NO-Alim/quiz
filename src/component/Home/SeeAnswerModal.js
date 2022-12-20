@@ -6,6 +6,7 @@ import { useGetResultQuery } from '../../features/result/resultApi';
 import { result } from '../../utils/resultCalculation';
 import Error from '../ui/Error';
 import LoaderSpin from '../ui/LoaderSpin';
+import ProgressRounded from './ProgressRounded';
 import SingleAnswerBody from './SingleAnswerBody';
 const SeeAnswerModal = ({ open, control, item }) => {
   const { user } = useSelector((state) => state.auth);
@@ -96,9 +97,7 @@ const SeeAnswerModal = ({ open, control, item }) => {
             </h1>
           </div>
           <div>
-            <div className="h-20 w-20 rounded-full bg-brand/10 flex items-center justify-center border border-brand">
-              {point.percentage}%
-            </div>
+            <ProgressRounded percentage={point.percentage} />
           </div>
         </div>
         <span className="border-b border-brand/20"></span>
