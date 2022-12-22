@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useGetRankingQuery } from '../features/rannking/rankingApi';
 import {
-  useGetResultQuery,
-  useGetUserAllResultQuery,
-} from '../features/result/resultApi';
-import { uniqArray } from '../utils/uniqArray';
+  useGetMyRankingQuery,
+  useGetRankingQuery,
+} from '../features/rannking/rankingApi';
 import Navbar from '../component/global/Navbar';
 import LoaderSpin from '../component/ui/LoaderSpin';
 import Error from '../component/ui/Error';
@@ -21,11 +19,13 @@ const Ranking = () => {
 
   //get ranking point this user
   const {
-    data: userRanking,
+    data: myRankingResponse,
     loading: userRankingLoading,
     isError: isUserRankingError,
     error: userRankingError,
-  } = useGetRankingQuery({ limit: '', userId: uId });
+  } = useGetMyRankingQuery({ userId: uId });
+
+  const { myIndex, data: userRanking } = myRankingResponse || {};
 
   //get 20 common asc limit ranking
   const {
@@ -34,7 +34,6 @@ const Ranking = () => {
     isError: isTopTwentyError,
     error: topTwentyError,
   } = useGetRankingQuery({ limit: 20, userId: '' });
-
   useEffect(() => {
     if (userRankingLoading || topTwentyLoading) {
       setLoading(true);
@@ -73,6 +72,10 @@ const Ranking = () => {
     content = <Error message={error.data} />;
   }
 
+  useEffect(() => {
+    console.log(topTwenty);
+  }, [topTwenty]);
+
   if (!loading && !error && topTwenty?.length > 0) {
     content = (
       <div className="bg-brand/10 p-5 rounded-md space-y-10">
@@ -82,8 +85,8 @@ const Ranking = () => {
             <hr className="border border-brand/10" />
             <table className="w-full border border-brand/10 py-3">
               <Thead />
-              {userRanking.map((item, ind) => {
-                return <Tbody item={item} ind={100} />;
+              {userRanking.map((item) => {
+                return <Tbody item={item} ind={myIndex} key={item.id} />;
               })}
             </table>
           </div>
@@ -95,7 +98,7 @@ const Ranking = () => {
           <table className="w-full border border-brand/10 py-3">
             <Thead />
             {topTwenty.map((item, ind) => {
-              return <Tbody item={item} ind={ind} />;
+              return <Tbody item={item} ind={ind} key={item.id} />;
             })}
           </table>
         </div>

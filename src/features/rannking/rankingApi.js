@@ -1,3 +1,4 @@
+import { json } from 'react-router-dom';
 import { apiSlice } from '../api/apiSlice';
 
 export const rankingApi = apiSlice.injectEndpoints({
@@ -8,6 +9,32 @@ export const rankingApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      //cache update
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        const data = await queryFulfilled;
+        if (data?.data?.userId) {
+          //getRanking
+          dispatch(
+            apiSlice.util.updateQueryData(
+              'getRanking',
+              { limit: '', userId: data.data.userId },
+              (draft) => {
+                draft.push(data.data);
+              }
+            )
+          );
+          //getMyRanking
+          dispatch(
+            apiSlice.util.updateQueryData(
+              'getMyRanking',
+              { userId: data.data.userId },
+              (draft) => {
+                console.log('hello');
+              }
+            )
+          );
+        }
+      },
     }),
     editRanking: builder.mutation({
       query: ({ id, data }) => ({
@@ -15,6 +42,33 @@ export const rankingApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
+      //cache update
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        const data = await queryFulfilled;
+
+        if (data?.data?.id && data?.data?.point) {
+          //getRanking
+          dispatch(
+            apiSlice.util.updateQueryData(
+              'getRanking',
+              { limit: '', userId: data.data.userId },
+              (draft) => {
+                console.log(json.toString(draft));
+              }
+            )
+          );
+          //getMyRanking
+          dispatch(
+            apiSlice.util.updateQueryData(
+              'getMyRanking',
+              { userId: data.data.userId },
+              (draft) => {
+                console.log(json.toString(draft));
+              }
+            )
+          );
+        }
+      },
     }),
     getRanking: builder.query({
       query: ({ limit, userId }) => {
@@ -28,6 +82,19 @@ export const rankingApi = apiSlice.injectEndpoints({
         return url;
       },
     }),
+    getMyRanking: builder.query({
+      query: ({ userId }) => `/ranking?_sort=point&_order=desc`,
+      transformResponse(apiResponse, meta, arg) {
+        const index = apiResponse.findIndex(
+          (item) => item.userId === arg.userId
+        );
+        const data = apiResponse.filter((item) => item.userId === arg.userId);
+        return {
+          myIndex: index,
+          data: data,
+        };
+      },
+    }),
   }),
 });
 
@@ -35,4 +102,5 @@ export const {
   useAddRankingMutation,
   useEditRankingMutation,
   useGetRankingQuery,
+  useGetMyRankingQuery,
 } = rankingApi;

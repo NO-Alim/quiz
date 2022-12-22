@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AddModuleModal from '../component/dashboard/AddModuleModal';
-import ModuleList from '../component/dashboard/ModuleList';
+import AddModuleModal from '../component/controlPanel/AddModuleModal';
+import ModuleList from '../component/controlPanel/ModuleList';
 import Navbar from '../component/global/Navbar';
 
 const ControlPanel = () => {

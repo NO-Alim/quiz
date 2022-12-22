@@ -10,7 +10,7 @@ const ProgressRounded = ({ percentage = 70 }) => {
   }
 
   return (
-    <div className="w-20 h-20">
+    <div className={`w-20 h-20`}>
       <CircularProgressbar
         styles={{
           path: {

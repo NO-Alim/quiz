@@ -6,7 +6,7 @@ import { useGetResultQuery } from '../../features/result/resultApi';
 import { result } from '../../utils/resultCalculation';
 import Error from '../ui/Error';
 import LoaderSpin from '../ui/LoaderSpin';
-import ProgressRounded from './ProgressRounded';
+import ProgressRounded from '../ui/ProgressRounded';
 import SingleAnswerBody from './SingleAnswerBody';
 const SeeAnswerModal = ({ open, control, item }) => {
   const { user } = useSelector((state) => state.auth);

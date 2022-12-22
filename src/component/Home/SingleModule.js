@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetResultQuery } from '../../features/result/resultApi';
 import Error from '../ui/Error';
 import done from '../../assets/images/done.png';
@@ -8,15 +8,23 @@ import SeeAnswerModal from './SeeAnswerModal';
 import ParticipateModal from './ParticipateModal';
 import { result } from '../../utils/resultCalculation';
 import { useGetAnswersQuery } from '../../features/answers/answersApi';
+import { setPoint } from '../../features/rannking/rankingSlice';
 
-const SingleModule = ({ item, handlePoint }) => {
+const SingleModule = ({ item }) => {
   const { user } = useSelector((state) => state.auth);
   const { id } = user;
+  const { moduleId } = useSelector((state) => state.ranking);
+  const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-
   const controlModal = () => {
     setOpenModal(!openModal);
+  };
+
+  const handleDispatch = (obj) => {
+    if (!moduleId.includes(obj.moduleId)) {
+      dispatch(setPoint(obj));
+    }
   };
 
   //fetch Module answer, if there is answer conditionally render view answer or Participate
@@ -39,25 +47,11 @@ const SingleModule = ({ item, handlePoint }) => {
   } = useGetQuestionsQuery(item.id) || {};
 
   //fetch answer
-
   const {
     data: answersData,
     isLoading: answerLoading,
     isError: isAnswerError,
   } = useGetAnswersQuery(item.id);
-
-  useEffect(() => {
-    if (answersData?.length > 0 && resultData?.length > 0) {
-      const earningPoint = result(answersData, resultData);
-      if (earningPoint) {
-        handlePoint({
-          id: item.id,
-          point: earningPoint?.point,
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answersData, resultData]);
 
   let content;
 
@@ -118,7 +112,12 @@ const SingleModule = ({ item, handlePoint }) => {
     const earningPoint = result(answersData, resultData);
     content = (
       <>
-        <div className="bg-brand/10 p-2 flex flex-col rounded-md cursor-pointer">
+        <div
+          className="bg-brand/10 p-2 flex flex-col rounded-md cursor-pointer"
+          onLoad={() =>
+            handleDispatch({ point: earningPoint.point, moduleId: item.id })
+          }
+        >
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-2">
               <div className="w-5 h-5 bg-[#1e871c] rounded-full flex items-center justify-center">

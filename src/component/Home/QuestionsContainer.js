@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import attention from '../../assets/images/attention.png';
 import QuestionBody from './QuestionBody';
 import { useAddResultMutation } from '../../features/result/resultApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetAnswersQuery } from '../../features/answers/answersApi';
+import { result } from '../../utils/resultCalculation';
+import { setPoint } from '../../features/rannking/rankingSlice';
 const QuestionsContainer = ({
   questions,
   item,
@@ -17,18 +20,19 @@ const QuestionsContainer = ({
   const [addResult, { isSuccess, isError, error, loading }] =
     useAddResultMutation();
 
+  //for next button
   const nextQuestion = () => {
     if (activeQuestion < questions.length - 1) {
       setActiveQuestion(activeQuestion + 1);
     }
   };
 
+  //for prev button
   const prevQuestion = () => {
     if (activeQuestion > 0) {
       setActiveQuestion(activeQuestion - 1);
     }
   };
-
   //when client click options add a value Selected:true and setInside questions
   const handleOptionClick = (questionId, question) => {
     const changedQuestion = questionsState.map((item) =>
@@ -36,9 +40,9 @@ const QuestionsContainer = ({
     );
     setQuestionsState(changedQuestion);
   };
-
   const handleSubmit = (e) => {
     //addResult({ data: questionsState });
+    //
     questionsState.map((item) => {
       addResult({
         data: {
@@ -55,6 +59,7 @@ const QuestionsContainer = ({
 
   useEffect(() => {
     handleLoading(loading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   useEffect(() => {
