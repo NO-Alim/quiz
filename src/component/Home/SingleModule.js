@@ -53,6 +53,10 @@ const SingleModule = ({ item }) => {
     isError: isAnswerError,
   } = useGetAnswersQuery(item.id);
 
+  useEffect(() => {
+    console.log(resultData);
+  }, [resultData]);
+
   let content;
 
   if (

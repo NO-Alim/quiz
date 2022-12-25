@@ -38,13 +38,12 @@ const PassFailedBoard = ({ item }) => {
     }
   }, [answersData, resultData]);
 
-  console.log(point);
-
   let content;
   if (answersData?.length > 0) {
     content = (
       <div
-        className={`w-3 h-3 rounded-sm bg-[${color}] relative cursor-pointer group`}
+        className={`w-3 h-3 rounded-sm relative cursor-pointer group`}
+        style={{ background: `${color}` }}
       >
         {point && (
           <div className="absolute w-40 h-20 flex flex-col items-start justify-center p-3 rounded-md border border-borderPrimary/10 bg-background -left-20 -top-20 -z-0 scale-0 group-hover:scale-100 all">

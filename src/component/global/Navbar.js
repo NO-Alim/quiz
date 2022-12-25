@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import { userLoggedOut } from '../../features/auth/authSlice';
+import { resetPoint } from '../../features/rannking/rankingSlice';
 const Navbar = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
     dispatch(userLoggedOut());
+    dispatch(resetPoint());
     localStorage.clear();
   };
   return (

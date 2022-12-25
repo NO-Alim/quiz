@@ -40,10 +40,6 @@ const Home = () => {
   ] = useEditRankingMutation();
 
   useEffect(() => {
-    console.log(rankingData);
-  }, [rankingData]);
-
-  useEffect(() => {
     if (!rankingLoading && !isRankingError) {
       //settimeout
       const timeOut = window.setTimeout(() => {

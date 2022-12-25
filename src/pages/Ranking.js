@@ -72,10 +72,6 @@ const Ranking = () => {
     content = <Error message={error.data} />;
   }
 
-  useEffect(() => {
-    console.log(topTwenty);
-  }, [topTwenty]);
-
   if (!loading && !error && topTwenty?.length > 0) {
     content = (
       <div className="bg-brand/10 p-5 rounded-md space-y-10">

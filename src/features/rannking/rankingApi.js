@@ -9,32 +9,7 @@ export const rankingApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      //cache update
-      async onQueryStarted(args, { queryFulfilled, dispatch }) {
-        const data = await queryFulfilled;
-        if (data?.data?.userId) {
-          //getRanking
-          dispatch(
-            apiSlice.util.updateQueryData(
-              'getRanking',
-              { limit: '', userId: data.data.userId },
-              (draft) => {
-                draft.push(data.data);
-              }
-            )
-          );
-          //getMyRanking
-          dispatch(
-            apiSlice.util.updateQueryData(
-              'getMyRanking',
-              { userId: data.data.userId },
-              (draft) => {
-                console.log('hello');
-              }
-            )
-          );
-        }
-      },
+      invalidatesTags: ['myRanking'],
     }),
     editRanking: builder.mutation({
       query: ({ id, data }) => ({
@@ -42,33 +17,7 @@ export const rankingApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      //cache update
-      async onQueryStarted(args, { queryFulfilled, dispatch }) {
-        const data = await queryFulfilled;
-
-        if (data?.data?.id && data?.data?.point) {
-          //getRanking
-          dispatch(
-            apiSlice.util.updateQueryData(
-              'getRanking',
-              { limit: '', userId: data.data.userId },
-              (draft) => {
-                console.log(json.toString(draft));
-              }
-            )
-          );
-          //getMyRanking
-          dispatch(
-            apiSlice.util.updateQueryData(
-              'getMyRanking',
-              { userId: data.data.userId },
-              (draft) => {
-                console.log(json.toString(draft));
-              }
-            )
-          );
-        }
-      },
+      invalidatesTags: ['myRanking'],
     }),
     getRanking: builder.query({
       query: ({ limit, userId }) => {
@@ -81,6 +30,7 @@ export const rankingApi = apiSlice.injectEndpoints({
         }
         return url;
       },
+      providesTags: ['myRanking'],
     }),
     getMyRanking: builder.query({
       query: ({ userId }) => `/ranking?_sort=point&_order=desc`,
@@ -94,6 +44,7 @@ export const rankingApi = apiSlice.injectEndpoints({
           data: data,
         };
       },
+      providesTags: ['myRanking'],
     }),
   }),
 });
