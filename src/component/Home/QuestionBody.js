@@ -37,7 +37,7 @@ const QuestionBody = ({ question, handleOptionClick }) => {
         <h1 className="text-2xl font-thin">{title}</h1>
       </div>
       <div className="code bg-black/40 rounded-md p-5">
-        <pre>{code}</pre>
+        <pre className="whitespace-pre-wrap">{code}</pre>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {options.map((item, ind) => {
@@ -51,7 +51,7 @@ const QuestionBody = ({ question, handleOptionClick }) => {
                 handleClick(ind);
               }}
             >
-              <pre className="border border-brand px-5 p-2 rounded-md w-full">
+              <pre className="border border-brand px-5 p-2 rounded-md w-full whitespace-pre-wrap">
                 {item.value}
               </pre>
             </div>

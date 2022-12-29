@@ -14,7 +14,6 @@ const ControlPanel = () => {
 
   return (
     <>
-      <Navbar />
       <div className="section bg-background text-textPrimary min-h-screen">
         <div className="text-end mb-5">
           <button

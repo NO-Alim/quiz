@@ -160,9 +160,9 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-brand/90 hover:bg-brand focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand text-background"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md bg-brand/90 hover:bg-brand focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand text-background"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+                <span className="absolute left-0 inset-y-0 flex items-center pl-3 text-background"></span>
                 Sign up
               </button>
             </div>

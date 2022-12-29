@@ -104,7 +104,6 @@ const Ranking = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="section bg-background text-textPrimary min-h-screen">
         {content}
       </div>

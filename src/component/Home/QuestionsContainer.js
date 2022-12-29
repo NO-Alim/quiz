@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetAnswersQuery } from '../../features/answers/answersApi';
 import { result } from '../../utils/resultCalculation';
 import { setPoint } from '../../features/rannking/rankingSlice';
+import ConfirmationModal from './ConfirmationModal';
 const QuestionsContainer = ({
   questions,
   item,
@@ -15,10 +16,17 @@ const QuestionsContainer = ({
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [questionsState, setQuestionsState] = useState(questions);
 
+  //
+  const [confirmModule, setConfirmModule] = useState(false);
+
   const { user } = useSelector((state) => state.auth);
 
   const [addResult, { isSuccess, isError, error, loading }] =
     useAddResultMutation();
+
+  const control = () => {
+    setConfirmModule(!confirmModule);
+  };
 
   //for next button
   const nextQuestion = () => {
@@ -106,11 +114,16 @@ const QuestionsContainer = ({
             activeQuestion === questions.length - 1 ? null : 'hidden'
           }`}
           disabled={loading}
-          onClick={handleSubmit}
+          onClick={control}
         >
           Submit Answer
         </button>
       </div>
+      <ConfirmationModal
+        open={confirmModule}
+        control={control}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

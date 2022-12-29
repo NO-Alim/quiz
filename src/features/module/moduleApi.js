@@ -8,6 +8,20 @@ export const moduleApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        const data = await queryFulfilled;
+        if (data?.data?.author) {
+          dispatch(
+            apiSlice.util.updateQueryData(
+              'getModules',
+              data.data.author,
+              (draft) => {
+                draft.push(data.data);
+              }
+            )
+          );
+        }
+      },
     }),
     getModules: builder.query({
       query: (email) => {
