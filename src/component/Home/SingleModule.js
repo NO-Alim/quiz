@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetResultQuery } from '../../features/result/resultApi';
-import Error from '../ui/Error';
 import done from '../../assets/images/done.png';
-import { useGetQuestionsQuery } from '../../features/question/questionsApi';
-import SeeAnswerModal from './SeeAnswerModal';
-import ParticipateModal from './ParticipateModal';
-import { result } from '../../utils/resultCalculation';
 import { useGetAnswersQuery } from '../../features/answers/answersApi';
+import { useGetQuestionsQuery } from '../../features/question/questionsApi';
 import { setPoint } from '../../features/rannking/rankingSlice';
+import { useGetResultQuery } from '../../features/result/resultApi';
+import { result } from '../../utils/resultCalculation';
+import Error from '../ui/Error';
+import ParticipateModal from './ParticipateModal';
+import SeeAnswerModal from './SeeAnswerModal';
 
 const SingleModule = ({ item }) => {
   const { user } = useSelector((state) => state.auth);
@@ -52,10 +52,6 @@ const SingleModule = ({ item }) => {
     isLoading: answerLoading,
     isError: isAnswerError,
   } = useGetAnswersQuery(item.id);
-
-  useEffect(() => {
-    console.log(resultData);
-  }, [resultData]);
 
   let content;
 

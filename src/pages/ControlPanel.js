@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AddModuleModal from '../component/controlPanel/AddModuleModal';
 import ModuleList from '../component/controlPanel/ModuleList';
-import Navbar from '../component/global/Navbar';
 
 const ControlPanel = () => {
   const [openAddModuleModal, setOpenAddModuleModal] = useState(false);
@@ -14,7 +13,7 @@ const ControlPanel = () => {
 
   return (
     <>
-      <div className="section bg-background text-textPrimary min-h-screen">
+      <div className="section bg-background text-textPrimary ">
         <div className="text-end mb-5">
           <button
             className="px-5 py-2 rounded-md bg-brand/20"

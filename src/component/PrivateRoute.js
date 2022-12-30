@@ -8,11 +8,11 @@ const PrivateRoute = ({ children }) => {
   const isLoggedIn = useAuth();
 
   return isLoggedIn ? (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      {children}
+      <div className="flex-1 bg-background">{children}</div>
       <Footer />
-    </>
+    </div>
   ) : (
     <Navigate to="/login" />
   );

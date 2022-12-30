@@ -129,7 +129,7 @@ const SeeAnswerModal = ({ open, control, item }) => {
   }
   return (
     open && (
-      <div className="fixed w-full md:p-5 min-h-screen inset-0 bg-brand/50 z-10 cursor-pointer items-center justify-center overflow-y-scroll scrollbar-hide">
+      <div className="fixed w-full md:p-5  inset-0 bg-brand/50 z-10 cursor-pointer items-center justify-center overflow-y-scroll scrollbar-hide">
         <div className="bg-background rounded-md w-full min-h-full p-2 flex flex-col">
           <div
             className="rounded-full bg-transparent flex items-center justify-end cursor-pointer"

@@ -3,16 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './component/PrivateRoute';
 import PublicRoute from './component/PublicRoute';
 import useAuthCheck from './hooks/useAuthCheck';
+import ControlPanel from './pages/ControlPanel';
+import Dashboard from './pages/Dashboard';
+import FourOFour from './pages/FourOFour';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
 import Ranking from './pages/Ranking';
 import Register from './pages/Register';
-import ControlPanel from './pages/ControlPanel';
-import { useSelector } from 'react-redux';
 const App = () => {
-  const { user } = useSelector((state) => state.auth);
-  const { email } = user;
   const authChecked = useAuthCheck();
 
   return !authChecked ? (
@@ -69,6 +67,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<FourOFour />} />
       </Routes>
     </Router>
   );

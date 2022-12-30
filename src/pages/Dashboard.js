@@ -1,16 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import DashBoardSummary from '../component/dashBoard/DashBoardSummary';
 import PassFailedBoard from '../component/dashBoard/PassFailedBoard';
 import ShareSocial from '../component/dashBoard/ShareSocial';
 import UserTotalSummary from '../component/dashBoard/UserTotalSummary';
-import Navbar from '../component/global/Navbar';
 import Error from '../component/ui/Error';
 import LoaderSpin from '../component/ui/LoaderSpin';
-import { useGetAnswersQuery } from '../features/answers/answersApi';
 import { useGetModulesQuery } from '../features/module/moduleApi';
-import { useGetUserAllResultQuery } from '../features/result/resultApi';
-import { uniqArray } from '../utils/uniqArray';
 
 const Dashboard = () => {
   //all Result
@@ -54,9 +49,7 @@ const Dashboard = () => {
   }
   return (
     <>
-      <div className="section bg-background text-textPrimary min-h-screen">
-        {content}
-      </div>
+      <div className="section bg-background text-textPrimary ">{content}</div>
     </>
   );
 };

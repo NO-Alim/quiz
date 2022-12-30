@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import close from '../../assets/images/close.png';
 import Error from '../ui/Error';
 import LoaderSpin from '../ui/LoaderSpin';
@@ -46,7 +46,7 @@ const ParticipateModal = ({ open, control, questions, item }) => {
   return (
     open && (
       <>
-        <div className="fixed w-full md:p-5 min-h-screen inset-0 bg-brand/50 z-10 items-center justify-center overflow-y-scroll scrollbar-hide">
+        <div className="fixed w-full md:p-5  inset-0 bg-brand/50 z-10 items-center justify-center overflow-y-scroll scrollbar-hide">
           <div className="bg-background rounded-md w-full min-h-full flex flex-col p-2">
             <div
               className="rounded-full bg-transparent flex items-center justify-end cursor-pointer"

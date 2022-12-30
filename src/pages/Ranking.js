@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Tbody from '../component/ranking/Tbody';
+import Thead from '../component/ranking/Thead';
+import Error from '../component/ui/Error';
+import LoaderSpin from '../component/ui/LoaderSpin';
 import {
   useGetMyRankingQuery,
   useGetRankingQuery,
 } from '../features/rannking/rankingApi';
-import Navbar from '../component/global/Navbar';
-import LoaderSpin from '../component/ui/LoaderSpin';
-import Error from '../component/ui/Error';
-import Thead from '../component/ranking/Thead';
-import Tbody from '../component/ranking/Tbody';
 
 const Ranking = () => {
   const { user } = useSelector((state) => state.auth);
@@ -107,9 +106,7 @@ const Ranking = () => {
 
   return (
     <div>
-      <div className="section bg-background text-textPrimary min-h-screen">
-        {content}
-      </div>
+      <div className="section bg-background text-textPrimary ">{content}</div>
     </div>
   );
 };

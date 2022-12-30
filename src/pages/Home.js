@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Navbar from '../component/global/Navbar';
 import Modules from '../component/Home/Modules';
 import {
   useAddRankingMutation,
@@ -75,7 +74,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="section bg-background text-textPrimary min-h-screen">
+      <div className="section bg-background text-textPrimary ">
         <div className="">
           <Modules />
         </div>

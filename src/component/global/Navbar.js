@@ -1,13 +1,13 @@
+import Drawer from '@material-ui/core/Drawer';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useRef, useState } from 'react';
+import { FiLogOut } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import close from '../../assets/images/close.png';
 import logo from '../../assets/images/logo.png';
 import { userLoggedOut } from '../../features/auth/authSlice';
 import { resetPoint } from '../../features/rannking/rankingSlice';
-import { FiLogOut } from 'react-icons/fi';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import close from '../../assets/images/close.png';
 
 const useStyles = makeStyles({
   root: {
@@ -70,35 +70,61 @@ const Navbar = () => {
     <>
       <div className="section py-2 bg-background text-textPrimary flex justify-between items-center shadow-sm border-b border-borderPrimary/10">
         <div>
-          <Link to="/">
+          <NavLink to="/">
             <img src={logo} alt="mralim" className="w-20" />
-          </Link>
+          </NavLink>
         </div>
         <div className="">
           <div className="hidden md:flex gap-5">
-            <Link to="/" className="rounded-md px-3 py-2 hover:bg-brand/10 all">
+            <NavLink
+              to="/"
+              className="rounded-md px-3 py-2 hover:bg-brand/10 all"
+              style={({ isActive }) =>
+                isActive
+                  ? { color: '#75efff', background: 'rgba(117, 239, 255, 0.1)' }
+                  : {}
+              }
+            >
               Home
-            </Link>
+            </NavLink>
             {email === process.env.REACT_APP_ADMIN_EMAIL && (
-              <Link
+              <NavLink
                 to="/controlPanel"
-                className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+                className="rounded-md px-3 py-2 hover:bg-brand/10 all"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: '#75efff',
+                        background: 'rgba(117, 239, 255, 0.1)',
+                      }
+                    : {}
+                }
               >
                 Control Panel
-              </Link>
+              </NavLink>
             )}
-            <Link
+            <NavLink
               to="/dashboard"
-              className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+              className="rounded-md px-3 py-2 hover:bg-brand/10 all"
+              style={({ isActive }) =>
+                isActive
+                  ? { color: '#75efff', background: 'rgba(117, 239, 255, 0.1)' }
+                  : {}
+              }
             >
               Dashboard
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/ranking"
               className="rounded-md px-3 py-2 hover:bg-brand/10 all"
+              style={({ isActive }) =>
+                isActive
+                  ? { color: '#75efff', background: 'rgba(117, 239, 255, 0.1)' }
+                  : {}
+              }
             >
               Leader Board
-            </Link>
+            </NavLink>
             <button onClick={logout}>
               <FiLogOut size={24} />
             </button>
@@ -151,35 +177,67 @@ const Navbar = () => {
           </div>
           <div>
             <ul className="list-none flex flex-col gap-5">
-              <Link
+              <NavLink
                 to="/"
                 className="rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: '#75efff',
+                        background: 'rgba(117, 239, 255, 0.1)',
+                      }
+                    : {}
+                }
                 onClick={toggleMenuDrawer}
               >
                 Home
-              </Link>
+              </NavLink>
               {email === process.env.REACT_APP_ADMIN_EMAIL && (
-                <Link
+                <NavLink
                   to="/controlPanel"
-                  className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+                  className="rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: '#75efff',
+                          background: 'rgba(117, 239, 255, 0.1)',
+                        }
+                      : {}
+                  }
                 >
                   Control Panel
-                </Link>
+                </NavLink>
               )}
-              <Link
+              <NavLink
                 to="/dashboard"
-                className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
+                className="rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: '#75efff',
+                        background: 'rgba(117, 239, 255, 0.1)',
+                      }
+                    : {}
+                }
                 onClick={toggleMenuDrawer}
               >
                 Dashboard
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/ranking"
                 className="rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: '#75efff',
+                        background: 'rgba(117, 239, 255, 0.1)',
+                      }
+                    : {}
+                }
                 onClick={toggleMenuDrawer}
               >
                 Leader Board
-              </Link>
+              </NavLink>
               <button
                 className="rounded-md px-3 py-2 bg-brand text-background hover:bg-brand/10 all text-center"
                 onClick={() => {
