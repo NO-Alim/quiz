@@ -44,16 +44,14 @@ const App = () => {
             </PublicRoute>
           }
         />
-        {email === process.env.REACT_APP_ADMIN_EMAIL && (
-          <Route
-            path="/controlPanel"
-            element={
-              <PrivateRoute>
-                <ControlPanel />
-              </PrivateRoute>
-            }
-          />
-        )}
+        <Route
+          path="/controlPanel"
+          element={
+            <PrivateRoute>
+              <ControlPanel />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/dashboard"
