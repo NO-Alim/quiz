@@ -20,7 +20,7 @@ const Ranking = () => {
   //get ranking point this user
   const {
     data: myRankingResponse,
-    loading: userRankingLoading,
+    isLoading: userRankingLoading,
     isError: isUserRankingError,
     error: userRankingError,
   } = useGetMyRankingQuery({ userId: uId });
@@ -30,17 +30,12 @@ const Ranking = () => {
   //get 20 common asc limit ranking
   const {
     data: topTwenty,
-    loading: topTwentyLoading,
+    isLoading: topTwentyLoading,
     isError: isTopTwentyError,
     error: topTwentyError,
   } = useGetRankingQuery({ limit: 20, userId: '' });
-  useEffect(() => {
-    if (userRankingLoading || topTwentyLoading) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
 
+  useEffect(() => {
     if (isUserRankingError || isTopTwentyError) {
       if (isUserRankingError) {
         setError(userRankingError?.data);
@@ -57,6 +52,14 @@ const Ranking = () => {
     isUserRankingError,
     isTopTwentyError,
   ]);
+
+  useEffect(() => {
+    if (userRankingLoading || topTwentyLoading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [userRankingLoading, topTwentyLoading]);
 
   let content;
 

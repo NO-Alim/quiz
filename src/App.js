@@ -9,7 +9,10 @@ import Dashboard from './pages/Dashboard';
 import Ranking from './pages/Ranking';
 import Register from './pages/Register';
 import ControlPanel from './pages/ControlPanel';
+import { useSelector } from 'react-redux';
 const App = () => {
+  const { user } = useSelector((state) => state.auth);
+  const { email } = user;
   const authChecked = useAuthCheck();
 
   return !authChecked ? (
@@ -41,14 +44,17 @@ const App = () => {
             </PublicRoute>
           }
         />
-        <Route
-          path="/controlPanel"
-          element={
-            <PrivateRoute>
-              <ControlPanel />
-            </PrivateRoute>
-          }
-        />
+        {email === process.env.REACT_APP_ADMIN_EMAIL && (
+          <Route
+            path="/controlPanel"
+            element={
+              <PrivateRoute>
+                <ControlPanel />
+              </PrivateRoute>
+            }
+          />
+        )}
+
         <Route
           path="/dashboard"
           element={

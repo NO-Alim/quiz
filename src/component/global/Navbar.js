@@ -26,6 +26,8 @@ const useStyles = makeStyles({
   },
 });
 const Navbar = () => {
+  const { user } = useSelector((state) => state.auth);
+  const { email } = user;
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userDrawer, setUserDrawer] = useState(false);
@@ -77,12 +79,14 @@ const Navbar = () => {
             <Link to="/" className="rounded-md px-3 py-2 hover:bg-brand/10 all">
               Home
             </Link>
-            <Link
-              to="/controlPanel"
-              className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
-            >
-              Control Panel
-            </Link>
+            {email === process.env.REACT_APP_ADMIN_EMAIL && (
+              <Link
+                to="/controlPanel"
+                className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+              >
+                Control Panel
+              </Link>
+            )}
             <Link
               to="/dashboard"
               className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
@@ -154,13 +158,14 @@ const Navbar = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/controlPanel"
-                className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
-                onClick={toggleMenuDrawer}
-              >
-                Control Panel
-              </Link>
+              {email === process.env.REACT_APP_ADMIN_EMAIL && (
+                <Link
+                  to="/controlPanel"
+                  className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all"
+                >
+                  Control Panel
+                </Link>
+              )}
               <Link
                 to="/dashboard"
                 className="bg-brand/10 rounded-md px-3 py-2 hover:bg-brand/10 all text-center"
