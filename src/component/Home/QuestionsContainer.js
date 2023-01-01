@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import attention from '../../assets/images/attention.png';
-import QuestionBody from './QuestionBody';
 import { useAddResultMutation } from '../../features/result/resultApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetAnswersQuery } from '../../features/answers/answersApi';
-import { result } from '../../utils/resultCalculation';
-import { setPoint } from '../../features/rannking/rankingSlice';
 import ConfirmationModal from './ConfirmationModal';
+import QuestionBody from './QuestionBody';
 const QuestionsContainer = ({
   questions,
   item,
@@ -21,7 +18,7 @@ const QuestionsContainer = ({
 
   const { user } = useSelector((state) => state.auth);
 
-  const [addResult, { isSuccess, isError, error, loading }] =
+  const [addResult, { isSuccess, isError, error, isLoading }] =
     useAddResultMutation();
 
   const control = () => {
@@ -66,9 +63,9 @@ const QuestionsContainer = ({
   };
 
   useEffect(() => {
-    handleLoading(loading);
+    handleLoading(isLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isError) {
@@ -92,7 +89,7 @@ const QuestionsContainer = ({
         question={questionsState[activeQuestion]}
         handleOptionClick={handleOptionClick}
       />
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row gap-5 justify-between">
         <button
           className="px-5 py-2 bg-brand/80 hover:bg-brand disabled:hover:bg-brand/80 text-background font-semibold rounded-md all disabled:cursor-no-drop"
           disabled={activeQuestion === 0}
@@ -113,7 +110,7 @@ const QuestionsContainer = ({
           className={`px-5 py-2 bg-brand/80 hover:bg-brand disabled:hover:bg-brand/80 text-background font-semibold rounded-md all ${
             activeQuestion === questions.length - 1 ? null : 'hidden'
           }`}
-          disabled={loading}
+          disabled={isLoading}
           onClick={control}
         >
           Submit Answer
@@ -123,6 +120,7 @@ const QuestionsContainer = ({
         open={confirmModule}
         control={control}
         handleSubmit={handleSubmit}
+        loading={isLoading}
       />
     </div>
   );

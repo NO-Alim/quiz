@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useGetModulesQuery } from '../../features/module/moduleApi';
 import {
@@ -6,7 +6,6 @@ import {
   useEditRankingMutation,
   useGetRankingQuery,
 } from '../../features/rannking/rankingApi';
-import { uniqArray } from '../../utils/uniqArray';
 import Error from '../ui/Error';
 import LoaderSpin from '../ui/LoaderSpin';
 import SingleModule from './SingleModule';
@@ -16,6 +15,7 @@ const Modules = () => {
   const { id: uId, name: userName } = user;
   //module data
   const { data, isLoading, isError, error } = useGetModulesQuery() || {};
+
   //ranking data
   const {
     data: rankingData,

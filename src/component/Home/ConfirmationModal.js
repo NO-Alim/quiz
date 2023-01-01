@@ -1,8 +1,8 @@
 import React from 'react';
-import close from '../../assets/images/close.png';
 import { AiFillWarning } from 'react-icons/ai';
+import close from '../../assets/images/close.png';
 
-const ConfirmationModal = ({ open, control, handleSubmit }) => {
+const ConfirmationModal = ({ open, control, handleSubmit, loading }) => {
   return (
     open && (
       <>
@@ -40,8 +40,9 @@ const ConfirmationModal = ({ open, control, handleSubmit }) => {
                     Cancel
                   </button>
                   <button
-                    className="px-3 py-1 rounded-md bg-red-600 text-textPrimary disabled:text-background disabled:bg-borderPrimary"
+                    className="px-3 py-1 rounded-md bg-red-600 text-textPrimary disabled:text-background disabled:bg-borderPrimary disabled:cursor-no-drop"
                     onClick={handleSubmit}
+                    disabled={loading}
                   >
                     Submit
                   </button>

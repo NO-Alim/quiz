@@ -40,8 +40,8 @@ const UserTotalSummary = () => {
 
   if (!resultLoading && !isResultError) {
     content = (
-      <div className="flex justify-between items-center gap-5">
-        <div className="flex gap-5">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-5">
+        <div className="flex gap-5 order-2 sm:order-1">
           <div className="text-xl font-thin flex flex-col gap-2 justify-between">
             <h1>Participate Quiz</h1>
             <h1>Correct Answer</h1>
@@ -59,15 +59,17 @@ const UserTotalSummary = () => {
             </p>
           </div>
         </div>
-        <ProgressRounded
-          percentage={
-            rankingData?.length > 0
-              ? Math.round(
-                  (rankingData[0].point / (resultData.length * 5)) * 100
-                )
-              : 0
-          }
-        />
+        <div className="x order-1 sm:order-2">
+          <ProgressRounded
+            percentage={
+              rankingData?.length > 0
+                ? Math.round(
+                    (rankingData[0].point / (resultData.length * 5)) * 100
+                  )
+                : 0
+            }
+          />
+        </div>
       </div>
     );
   }
