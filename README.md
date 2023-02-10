@@ -1,5 +1,5 @@
 # Quiz app with real time ranking list.
-### [Live Site](https://whimsical-cupcake-055615.netlify.app)
+### [Live Site](https://endearing-kelpie-2f45fb.netlify.app)
 ![Quiz-app](https://i.ibb.co/s1tRy7y/Screenshot-25.png)
 
 ## Introduction 
